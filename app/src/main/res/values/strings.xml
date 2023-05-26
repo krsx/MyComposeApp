@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MyComposeApp</string>
     <string name="search_placeholder">Search</string>
+    <string name="empty_movie">No Movie Found</string>
+    <string name="error_movie">Something Went Wrong!</string>
+
 </resources>
