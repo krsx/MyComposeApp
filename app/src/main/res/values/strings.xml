@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyComposeApp</string>
+    <string name="search_placeholder">Search</string>
 </resources>
