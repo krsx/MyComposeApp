@@ -1,5 +1,6 @@
 package com.capstone.mycomposeapp.ui.screens.home
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.capstone.mycomposeapp.model.FakeMovieDataSource
 import com.capstone.mycomposeapp.model.FavoriteMovie
 import com.capstone.mycomposeapp.model.Movie
 import com.capstone.mycomposeapp.utils.UIState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -37,20 +39,20 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-//    fun searchMovies(newQuery: String) {
-//        _query.value = newQuery
-//        _listMovie.value = repository.searchMovies(_query.value).sortedBy { it.title }
-//            .groupBy { it.title[0] }
-//    }
-
-    fun searchMovies(newQuery: String){
+    fun searchMovies(newQuery: String) {
         viewModelScope.launch {
             _query.value = newQuery
             repository.searchMovies(_query.value).catch {
                 _uiState.value = UIState.Error(it.message.toString())
-            }.collect{
+            }.collect {
                 _uiState.value = UIState.Success(it)
             }
+        }
+    }
+
+    fun updateFavoriteMovie(id: Int, isFavoriteMovie: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateFavoriteMovieById(id, isFavoriteMovie)
         }
     }
 }

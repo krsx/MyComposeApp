@@ -27,22 +27,24 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.capstone.mycomposeapp.model.FavoriteMovie
 import com.capstone.mycomposeapp.model.Movie
+import com.capstone.mycomposeapp.ui.navigation.Screen
 import com.capstone.mycomposeapp.ui.theme.MyComposeAppTheme
 
 @Composable
 fun MovieListItem(
     movie: FavoriteMovie,
-    navController: NavController,
+    modifier: Modifier,
     scaffoldState: ScaffoldState,
+    onUpdateFavoriteMovie: (id: Int, isFavorite: Boolean) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    Card(modifier = Modifier
+    Card(modifier = modifier
         .padding(8.dp)
         .fillMaxWidth()
         .clip(MaterialTheme.shapes.small)
         .border(1.dp, Color.LightGray.copy(0.5f), MaterialTheme.shapes.small)
-        .clickable {}) {
+        ) {
         Column {
             AsyncImage(
                 model = movie.movie.posterPath,
@@ -54,6 +56,7 @@ fun MovieListItem(
                 movie = movie,
                 coroutineScope = coroutineScope,
                 scaffoldState = scaffoldState,
+                onUpdateFavoriteMovie = onUpdateFavoriteMovie,
             )
         }
     }

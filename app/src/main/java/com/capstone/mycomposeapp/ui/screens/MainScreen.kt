@@ -24,7 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.capstone.mycomposeapp.ui.navigation.NavigationItem
-import com.capstone.mycomposeapp.ui.screens.detail.DetailHotelScreen
+import com.capstone.mycomposeapp.ui.screens.detail.DetailMovieScreen
 import com.capstone.mycomposeapp.ui.screens.favorite.FavoriteScreen
 import com.capstone.mycomposeapp.ui.screens.home.HomeScreen
 import com.capstone.mycomposeapp.ui.screens.profile.ProfileScreen
@@ -56,18 +56,20 @@ fun MainScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(it)
         ){
             composable(Screen.Home.route){
-                HomeScreen(navController, scaffoldState)
+                HomeScreen(navigateToDetail = { rewardId ->
+                    navController.navigate(Screen.Detail.createRoute(rewardId))
+                }, scaffoldState = scaffoldState)
             }
             composable(
                 route = Screen.Detail.route,
                 arguments = listOf(
-                    navArgument("hotelId"){
+                    navArgument("movieId"){
                         type = NavType.IntType
                     }
                 )
             ){
-                val hotelId = it.arguments?.getInt("movieId") ?: 0
-                DetailHotelScreen(hotelId, scaffoldState)
+                val movieId = it.arguments?.getInt("movieId") ?: 0
+                DetailMovieScreen(movieId = movieId, scaffoldState)
             }
             composable(Screen.Favorite.route){
                 FavoriteScreen(navController, scaffoldState)

@@ -3,6 +3,7 @@ package com.capstone.mycomposeapp.ui.screens.home
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -15,8 +16,9 @@ import com.capstone.mycomposeapp.utils.UIState
 
 @Composable
 fun HomeScreen(
-    navController: NavController,
+    modifier: Modifier = Modifier,
     scaffoldState: ScaffoldState,
+    navigateToDetail: (Int) -> Unit,
     viewModel: HomeViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository())
     ),
@@ -26,11 +28,15 @@ fun HomeScreen(
             is UIState.Error -> ErrorContent()
             is UIState.Loading -> Loading()
             is UIState.Success -> MovieContent(
+                modifier,
                 listMovies = UIState.data,
-                navController = navController,
+                navigateToDetail = navigateToDetail,
                 scaffoldState = scaffoldState,
                 query = viewModel.query.value,
-                onQueryChange = viewModel::searchMovies
+                onQueryChange = viewModel::searchMovies,
+                onUpdateFavoriteMovie = { id, isFavorite ->
+                    viewModel.updateFavoriteMovie(id, isFavorite)
+                }
             )
         }
     }

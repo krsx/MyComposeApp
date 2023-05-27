@@ -1,5 +1,6 @@
 package com.capstone.mycomposeapp.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -28,20 +29,12 @@ fun MovieLIstItemDescription(
     movie: FavoriteMovie,
     coroutineScope: CoroutineScope,
     scaffoldState: ScaffoldState,
-    isSmall: Boolean = false,
-
+    onUpdateFavoriteMovie: (id: Int, isFavorite: Boolean) -> Unit,
 ) {
     var padding = 14
-    var fontSize = MaterialTheme.typography.h6
-    var ratingIconSize = 18
-    var btnFavSize = 32
-
-    if (isSmall) {
-        padding = 16
-        fontSize = MaterialTheme.typography.subtitle1
-        ratingIconSize = 14
-        btnFavSize = 24
-    }
+    val fontSize = MaterialTheme.typography.h6
+    val ratingIconSize = 18
+    val btnFavSize = 32
 
     Column(modifier = Modifier.padding(16.dp)) {
         Text(text = movie.movie.title, style = fontSize)
@@ -72,14 +65,14 @@ fun MovieLIstItemDescription(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null
                     ) {
-//                        onUpdateFavoriteMovie(movie.movie.id, !movie.isFavorite)
-//                        coroutineScope.launch {
-//                            scaffoldState.snackbarHostState.showSnackbar(
-//                                message = "${movie.movie.title} ${if (movie.isFavorite) "removed from" else "added as"} favorite ",
-//                                actionLabel = "Dismiss",
-//                                duration = SnackbarDuration.Short
-//                            )
-//                        }
+                        onUpdateFavoriteMovie(movie.movie.id, !movie.isFavorite)
+                        coroutineScope.launch {
+                            scaffoldState.snackbarHostState.showSnackbar(
+                                message = "${movie.movie.title} ${if (movie.isFavorite) "removed from" else "added as"} favorite ",
+                                actionLabel = "Dismiss",
+                                duration = SnackbarDuration.Short
+                            )
+                        }
                     },
             )
         }

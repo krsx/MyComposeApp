@@ -3,17 +3,19 @@ package com.capstone.mycomposeapp.ui.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.capstone.mycomposeapp.model.FavoriteMovie
 
 @Composable
 fun MovieContent(
+    modifier: Modifier,
     listMovies: List<FavoriteMovie>,
-    navController: NavController,
     scaffoldState: ScaffoldState,
+    navigateToDetail: (Int) -> Unit,
     query: String? = null,
     onQueryChange: ((String) -> Unit)? = null,
-
+    onUpdateFavoriteMovie: (id: Int, isFavorite: Boolean) -> Unit
     ) {
     Column {
         if (query != null && onQueryChange != null) {
@@ -22,9 +24,12 @@ fun MovieContent(
         when (listMovies.isEmpty()) {
             true -> EmptyContent()
             false -> AvailableContent(
+                modifier,
                 listMovies,
-                navController,
                 scaffoldState,
+                navigateToDetail,
+                onUpdateFavoriteMovie,
+
             )
         }
     }
