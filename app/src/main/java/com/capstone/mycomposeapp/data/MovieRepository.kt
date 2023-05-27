@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flowOf
 class MovieRepository {
     private val favoriteMovies = mutableListOf<FavoriteMovie>()
 
+
     init {
         if (favoriteMovies.isEmpty()) {
             FakeMovieDataSource.dummyMovieList.forEach {
@@ -18,14 +19,18 @@ class MovieRepository {
         }
     }
 
+    fun getMovies(): List<Movie> {
+        return FakeMovieDataSource.dummyMovieList
+    }
+
     fun getAllMovies(): Flow<List<FavoriteMovie>> {
         return flowOf(favoriteMovies)
     }
 
-    fun searchHeroes(query: String): List<Movie> {
-        return FakeMovieDataSource.dummyMovieList.filter {
-            it.title.contains(query, ignoreCase = true)
-        }
+    fun searchMovies(query: String): Flow<List<FavoriteMovie>> {
+        return flowOf(favoriteMovies.filter {
+            it.movie.title.contains(query, ignoreCase = true)
+        })
     }
 
     fun getMovieDetail(id: Int): FavoriteMovie {

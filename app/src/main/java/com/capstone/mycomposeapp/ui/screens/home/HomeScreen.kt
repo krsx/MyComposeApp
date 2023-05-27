@@ -20,19 +20,17 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository())
     ),
-
-    ) {
+) {
     viewModel.uiState.collectAsState(initial = UIState.Loading).value.let { UIState ->
         when (UIState) {
             is UIState.Error -> ErrorContent()
-            is UIState.Loading -> {
-                Loading()
-                viewModel.getAllMovies()
-            }
+            is UIState.Loading -> Loading()
             is UIState.Success -> MovieContent(
                 listMovies = UIState.data,
                 navController = navController,
-                scaffoldState = scaffoldState
+                scaffoldState = scaffoldState,
+                query = viewModel.query.value,
+                onQueryChange = viewModel::searchMovies
             )
         }
     }

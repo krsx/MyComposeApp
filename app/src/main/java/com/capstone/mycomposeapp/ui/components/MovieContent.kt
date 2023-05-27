@@ -14,7 +14,7 @@ fun MovieContent(
     query: String? = null,
     onQueryChange: ((String) -> Unit)? = null,
 
-) {
+    ) {
     Column {
         if (query != null && onQueryChange != null) {
             SearchBar(query = query, onQueryChange = onQueryChange)
