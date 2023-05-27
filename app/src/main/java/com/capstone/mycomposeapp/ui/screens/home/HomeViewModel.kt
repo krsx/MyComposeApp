@@ -29,7 +29,7 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
         getAllMovies()
     }
 
-    private fun getAllMovies() {
+    fun getAllMovies() {
         viewModelScope.launch {
             repository.getAllMovies().catch {
                 _uiState.value = UIState.Error(it.message.toString())
@@ -53,6 +53,7 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
     fun updateFavoriteMovie(id: Int, isFavoriteMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateFavoriteMovieById(id, isFavoriteMovie)
+            getAllMovies()
         }
     }
 }

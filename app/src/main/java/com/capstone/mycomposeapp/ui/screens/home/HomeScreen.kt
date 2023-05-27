@@ -26,7 +26,10 @@ fun HomeScreen(
     viewModel.uiState.collectAsState(initial = UIState.Loading).value.let { UIState ->
         when (UIState) {
             is UIState.Error -> ErrorContent()
-            is UIState.Loading -> Loading()
+            is UIState.Loading -> {
+                Loading()
+                viewModel.getAllMovies()
+            }
             is UIState.Success -> MovieContent(
                 modifier,
                 listMovies = UIState.data,
@@ -36,6 +39,7 @@ fun HomeScreen(
                 onQueryChange = viewModel::searchMovies,
                 onUpdateFavoriteMovie = { id, isFavorite ->
                     viewModel.updateFavoriteMovie(id, isFavorite)
+                    viewModel.getAllMovies()
                 }
             )
         }

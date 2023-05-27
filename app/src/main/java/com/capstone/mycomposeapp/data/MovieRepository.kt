@@ -22,6 +22,10 @@ class MovieRepository {
         return flowOf(favoriteMovies)
     }
 
+    fun getAllFavoritesMovies(): Flow<List<FavoriteMovie>> {
+        return flowOf(favoriteMovies.filter { it.isFavorite != false })
+    }
+
     fun searchMovies(query: String): Flow<List<FavoriteMovie>> {
         return flowOf(favoriteMovies.filter {
             it.movie.title.contains(query, ignoreCase = true)

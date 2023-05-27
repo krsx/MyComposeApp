@@ -3,10 +3,7 @@ package com.capstone.mycomposeapp.ui.components
 import android.content.res.Resources.Theme
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -39,13 +36,14 @@ fun MovieListItem(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    Card(modifier = modifier
-        .padding(8.dp)
-        .fillMaxWidth()
-        .clip(MaterialTheme.shapes.small)
-        .border(1.dp, Color.LightGray.copy(0.5f), MaterialTheme.shapes.small)
-        ) {
-        Column {
+    Card(
+        modifier = modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.small)
+            .border(1.dp, Color.LightGray.copy(0.5f), MaterialTheme.shapes.small)
+    ) {
+        Column(modifier.fillMaxWidth(), Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImage(
                 model = movie.movie.posterPath,
                 contentDescription = movie.movie.title,

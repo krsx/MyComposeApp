@@ -49,13 +49,13 @@ fun MainScreen(modifier: Modifier = Modifier) {
             }
         },
         modifier = modifier,
-    ){
+    ) {
         NavHost(
             navController = navController,
             startDestination = Screen.Home.route,
             modifier = Modifier.padding(it)
-        ){
-            composable(Screen.Home.route){
+        ) {
+            composable(Screen.Home.route) {
                 HomeScreen(navigateToDetail = { rewardId ->
                     navController.navigate(Screen.Detail.createRoute(rewardId))
                 }, scaffoldState = scaffoldState)
@@ -63,18 +63,20 @@ fun MainScreen(modifier: Modifier = Modifier) {
             composable(
                 route = Screen.Detail.route,
                 arguments = listOf(
-                    navArgument("movieId"){
+                    navArgument("movieId") {
                         type = NavType.IntType
                     }
                 )
-            ){
+            ) {
                 val movieId = it.arguments?.getInt("movieId") ?: 0
                 DetailMovieScreen(movieId = movieId, scaffoldState)
             }
-            composable(Screen.Favorite.route){
-                FavoriteScreen(navController, scaffoldState)
+            composable(Screen.Favorite.route) {
+                FavoriteScreen(navigateToDetail = { rewardId ->
+                    navController.navigate(Screen.Detail.createRoute(rewardId))
+                }, scaffoldState = scaffoldState)
             }
-            composable(Screen.Profile.route){
+            composable(Screen.Profile.route) {
                 ProfileScreen()
             }
         }
