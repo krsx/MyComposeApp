@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.capstone.mycomposeapp.R
 import com.capstone.mycomposeapp.ui.theme.MyComposeAppTheme
 
-
 @Composable
 fun ProfileScreen() {
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {

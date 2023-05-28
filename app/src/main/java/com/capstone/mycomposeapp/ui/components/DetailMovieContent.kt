@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -18,39 +17,41 @@ import com.capstone.mycomposeapp.model.FavoriteMovie
 
 @Composable
 fun DetailMovieContent(
+    modifier: Modifier = Modifier,
     movie: FavoriteMovie, scaffoldState: ScaffoldState,
     onUpdateFavoriteMovie: (id: Int, isFavorite: Boolean) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(12.dp))
         AsyncImage(
             model = movie.movie.posterPath,
             contentDescription = movie.movie.title,
-            modifier = Modifier.width(150.dp),
+            modifier = modifier.width(150.dp),
             contentScale = ContentScale.FillWidth
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = modifier.height(12.dp))
         MovieLIstItemDescription(
             movie = movie,
             coroutineScope = coroutineScope,
             scaffoldState = scaffoldState,
             onUpdateFavoriteMovie = onUpdateFavoriteMovie,
-            isDesc = false
+            isDesc = false,
+            modifier = modifier
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = modifier.height(12.dp))
 
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
@@ -63,13 +64,13 @@ fun DetailMovieContent(
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = modifier.height(24.dp))
 
             Text(
                 text = movie.movie.overview,
                 style = MaterialTheme.typography.body1
             )
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = modifier.height(12.dp))
         }
     }
 }

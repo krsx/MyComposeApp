@@ -25,7 +25,7 @@ fun DetailMovieScreen(
             is UIState.Success -> DetailMovieContent(
                 movie = uiState.data,
                 scaffoldState = scaffoldState,
-                onUpdateFavoriteMovie = viewModel::updateFavoriteMovie
+                onUpdateFavoriteMovie = viewModel::updateFavoriteMovie,
             )
         }
     }

@@ -5,8 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.capstone.mycomposeapp.injection.Injection
 import com.capstone.mycomposeapp.ui.components.ErrorContent
 import com.capstone.mycomposeapp.ui.components.Loading
@@ -39,8 +37,8 @@ fun HomeScreen(
                 onQueryChange = viewModel::searchMovies,
                 onUpdateFavoriteMovie = { id, isFavorite ->
                     viewModel.updateFavoriteMovie(id, isFavorite)
-                    viewModel.getAllMovies()
-                }
+                },
+
             )
         }
     }

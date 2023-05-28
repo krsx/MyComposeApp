@@ -5,17 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import com.capstone.mycomposeapp.injection.Injection
-import com.capstone.mycomposeapp.model.FavoriteMovie
 import com.capstone.mycomposeapp.ui.components.ErrorContent
 import com.capstone.mycomposeapp.ui.components.Loading
 import com.capstone.mycomposeapp.ui.components.MovieContent
 import com.capstone.mycomposeapp.ui.screens.ViewModelFactory
-import com.capstone.mycomposeapp.ui.screens.home.HomeViewModel
 import com.capstone.mycomposeapp.utils.UIState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun FavoriteScreen(

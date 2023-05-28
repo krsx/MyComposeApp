@@ -1,20 +1,16 @@
 package com.capstone.mycomposeapp.ui.screens.home
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.capstone.mycomposeapp.data.MovieRepository
-import com.capstone.mycomposeapp.model.FakeMovieDataSource
 import com.capstone.mycomposeapp.model.FavoriteMovie
-import com.capstone.mycomposeapp.model.Movie
 import com.capstone.mycomposeapp.utils.UIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
@@ -24,6 +20,7 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
 
     private val _query = mutableStateOf("")
     val query: State<String> get() = _query
+
 
     init {
         getAllMovies()
@@ -53,7 +50,6 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
     fun updateFavoriteMovie(id: Int, isFavoriteMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateFavoriteMovieById(id, isFavoriteMovie)
-            getAllMovies()
         }
     }
 }

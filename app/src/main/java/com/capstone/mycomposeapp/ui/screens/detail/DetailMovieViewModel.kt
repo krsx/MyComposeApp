@@ -1,5 +1,7 @@
 package com.capstone.mycomposeapp.ui.screens.detail
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.capstone.mycomposeapp.data.MovieRepository
@@ -17,7 +19,7 @@ class DetailMovieViewModel(private val repository: MovieRepository) : ViewModel(
     val uiState: StateFlow<UIState<FavoriteMovie>>
         get() = _uiState
 
-    fun getMovieById(id: Int){
+    fun getMovieById(id: Int) {
         viewModelScope.launch {
             _uiState.value = UIState.Loading
             _uiState.value = UIState.Success(repository.getMovieDetail(id))

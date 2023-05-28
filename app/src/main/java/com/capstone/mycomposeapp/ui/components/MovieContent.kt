@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import com.capstone.mycomposeapp.model.FavoriteMovie
 
 @Composable
@@ -15,8 +14,8 @@ fun MovieContent(
     navigateToDetail: (Int) -> Unit,
     query: String? = null,
     onQueryChange: ((String) -> Unit)? = null,
-    onUpdateFavoriteMovie: (id: Int, isFavorite: Boolean) -> Unit
-    ) {
+    onUpdateFavoriteMovie: (id: Int, isFavorite: Boolean) -> Unit,
+) {
     Column {
         if (query != null && onQueryChange != null) {
             SearchBar(query = query, onQueryChange = onQueryChange)
@@ -29,7 +28,6 @@ fun MovieContent(
                 scaffoldState,
                 navigateToDetail,
                 onUpdateFavoriteMovie,
-
             )
         }
     }

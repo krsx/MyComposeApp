@@ -39,6 +39,7 @@ class MovieRepository {
     }
 
     fun updateFavoriteMovieById(id: Int, isFavorite: Boolean): Flow<Boolean> {
+        Log.e("CHECK", "Ini ${id} dan ${isFavorite}")
         val index = favoriteMovies.indexOfFirst { it.movie.id == id }
         val result = if (index >= 0) {
             val favoriteMovie = favoriteMovies[index]
@@ -49,7 +50,7 @@ class MovieRepository {
             false
         }
 
-        Log.e("TEST", favoriteMovies.toString())
+        Log.e("TEST", favoriteMovies.first().toString())
         return flowOf(result)
     }
 
